@@ -1,0 +1,81 @@
+<nav th:fragment="nav">
+    <div class="container-fluid d-flex flex-column p-0">
+        <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
+           href="/index">
+            <div class="sidebar-brand-text mx-3">
+                <span>Production<br>Department</span>
+            </div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <ul class="navbar-nav text-light" id="accordionSidebar">
+            <li th:if="${role != 'NOT'}" class="nav-item">
+                <a class="nav-link" href="/ordering">
+                    <span>Заказ материалов</span>
+                </a>
+            </li>
+            <li th:if="${role == 'DISPATCHER'}" class="nav-item">
+                <a class="nav-link" href="/sales">
+                    <span>Производственный маршрут</span>
+                </a>
+            </li>
+            <li th:if="${role == 'ASSEMBLY_SHOP_FOREMAN'}" class="nav-item">
+                <a class="nav-link" href="/assembling">
+                    <span>Сборочный цех</span>
+                </a>
+            </li>
+            <li th:if="${role == 'MASTER_OF_THE_PAINT_SHOP'}" class="nav-item">
+                <a class="nav-link" href="/paint">
+                    <span>Покрасочный цех</span>
+                </a>
+            </li>
+            <li th:if="${role == 'MASTER_OF_THE_PACKAGING_SHOP'}" class="nav-item">
+                <a class="nav-link" href="/pack">
+                    <span>Упаковочный цех</span>
+                </a>
+            </li>
+            <li th:if="${role != 'NOT'}" class="nav-item">
+                <a class="nav-link" href="/completed">
+                    <span>Итоговый продукт</span>
+                </a>
+            </li>
+            <li th:if="${role != 'NOT'}" class="nav-item">
+                <a class="nav-link" href="/index">
+                    <span>Профиль</span>
+                </a>
+            </li>
+            <li th:if="${role == 'ADMIN'}" class="nav-item">
+                <a class="nav-link" href="/userAll">
+                    <span>Пользователи</span>
+                </a>
+            </li>
+            <li th:if="${role == 'ADMIN'}" class="nav-item">
+                <a class="nav-link" href="/userAdd">
+                    <span>Добавить сотрудника</span>
+                </a>
+            </li>
+            <li th:if="${role == 'NOT'}" class="nav-item">
+                <a class="nav-link" href="/login">
+                    <span>Вход</span>
+                </a>
+            </li>
+            <li th:if="${role == 'NOT'}" class="nav-item">
+                <a class="nav-link" href="/reg">
+                    <span>Регистрация</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/about">
+                    <span>О нас</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">
+                    <span>Выход</span>
+                </a>
+            </li>
+        </ul>
+        <div class="text-center d-none d-md-inline">
+            <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+        </div>
+    </div>
+</nav>

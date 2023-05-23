@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Заказ материалов</title>
+</head>
+
+<head th:insert="blocks\head :: head"></head>
+
+<body id="page-top">
+<div id="wrapper">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 accent"
+         th:insert="blocks/navLeft :: nav"></nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <div th:insert="blocks/navTop :: nav"></div>
+            <div class="container-fluid">
+                <h3 class="text-dark mb-4">Заказ материалов</h3>
+                <div th:if="${role == 'ASSEMBLY_SHOP_FOREMAN' or role == 'MASTER_OF_THE_PAINT_SHOP' or role == 'MASTER_OF_THE_PACKAGING_SHOP'}"
+                     class="row mb-5px">
+                    <div class="col">Артикул</div>
+                    <div class="col">Название</div>
+                    <div class="col">Тип сырья</div>
+                    <div class="col">Единица измерения</div>
+                    <div class="col">Количество</div>
+                    <div class="col-auto">
+                        <button style="opacity: 0" class="btn btn-outline-primary" type="submit">Добавить</button>
+                    </div>
+                </div>
+                <div th:if="${role == 'ASSEMBLY_SHOP_FOREMAN' or role == 'MASTER_OF_THE_PAINT_SHOP' or role == 'MASTER_OF_THE_PACKAGING_SHOP'}"
+                     class="row">
+                    <div class="col">
+                        <form action="/ordering/add" method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control" type="text" name="article" required>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" type="text" name="name" required>
+                                </div>
+                                <div class="col">
+                                    <select name="typeOfRawMaterial" class="form-select" required>
+                                        <option th:each="i : ${typeOfRawMaterials}" th:value="${i}"
+                                                th:label="${i.name}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select name="unitOfMeasurement" class="form-select" required>
+                                        <option th:each="i : ${unitOfMeasurements}" th:value="${i}"
+                                                th:label="${i.name}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" type="number" step="1" min="1" name="quantity" required>
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-outline-primary" type="submit">Добавить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-5px">
+                    <div class="col">Артикул</div>
+                    <div class="col">Название</div>
+                    <div class="col">Тип сырья</div>
+                    <div class="col">Единица измерения</div>
+                    <div class="col">Количество</div>
+                    <div class="col">Статус</div>
+                    <div class="col-1"></div>
+                </div>
+                <div th:each="i : ${orderings}" class="row mb-5px">
+                    <div class="col">
+                        <input th:value="${i.article}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.name}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.typeOfRawMaterial.name}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.unitOfMeasurement.name}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.quantity}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.status.name}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col-1">
+                        <a th:if="${i.status.name() == 'WAITING' and role == 'TECHNOLOGIST'}"
+                           class="btn btn-outline-primary"
+                           th:href="'/ordering/' + ${i.id} + '/delivered'">Доставлено</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/theme.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Упаковочный цех</title>
+</head>
+
+<head th:insert="blocks\head :: head"></head>
+
+<body id="page-top">
+<div id="wrapper">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 accent"
+         th:insert="blocks/navLeft :: nav"></nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <div th:insert="blocks/navTop :: nav"></div>
+            <div class="container-fluid">
+                <h3 class="text-dark mb-4">Упаковочный цех</h3>
+                <hr>
+                <div class="row mb-5px">
+                    <div class="col">Название</div>
+                    <div class="col">Количество</div>
+                    <div class="col">Время выполнения</div>
+                    <div class="col">Дедлайн</div>
+                    <div class="col">Статус</div>
+                    <div class="col-auto">
+                        <a style="opacity: 0" class="btn btn-outline-primary">Упаковка</a>
+                    </div>
+                    <div class="col-auto">
+                        <a style="opacity: 0" class="btn btn-outline-primary">Завершена</a>
+                    </div>
+                </div>
+                <div th:each="i : ${salesPainting_is_completed}" class="row mb-5px">
+                    <div class="col">
+                        <input th:value="${i.name}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.quantity}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.time}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.deadline}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.status.name}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col-auto">
+                        <a class="btn btn-outline-primary" th:href="'/pack/' + ${i.id} + '/packaging'">Упаковка</a>
+                    </div>
+                    <div class="col-auto">
+                        <a style="opacity: 0" class="btn btn-outline-primary"
+                           th:href="'/pack/' + ${i.id} + '/completed'">Завершена</a>
+                    </div>
+                </div>
+                <div th:each="i : ${salesPackaging}" class="row mb-5px">
+                    <div class="col">
+                        <input th:value="${i.name}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.quantity}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.time}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.deadline}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col">
+                        <input th:value="${i.status.name}" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="col-auto">
+                        <a style="opacity: 0" class="btn btn-outline-primary"
+                           th:href="'/pack/' + ${i.id} + '/packaging'">Упаковка</a>
+                    </div>
+                    <div class="col-auto">
+                        <a class="btn btn-outline-primary"
+                           th:href="'/pack/' + ${i.id} + '/completed'">Завершена</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/theme.js"></script>
+</body>
+
+</html>
